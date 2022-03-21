@@ -2,14 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>cn.org.manta</groupId>
-        <artifactId>java-example</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.manta</groupId>
-    <artifactId>netty-reactor-pattern</artifactId>
+    <groupId>cn.org.manta</groupId>
+    <artifactId>java-example</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>netty-reactor-pattern</module>
+        <module>spi</module>
+    </modules>
 </project>
