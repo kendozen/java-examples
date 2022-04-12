@@ -12,5 +12,7 @@
     <modules>
         <module>netty-reactor-pattern</module>
         <module>spi</module>
+        <module>reactor</module>
+        <module>completable</module>
     </modules>
 </project>
