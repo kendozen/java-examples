@@ -85,6 +85,7 @@ public class CompletableTask<V> implements Future<V> {
 
   private static Unsafe createUnsafe() {
     try {
+      //因为unsafe只能由jvm内部调用，外部直接使用会报异常错误，因此这里通过反射来获取到
       Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
       Field field = unsafeClass.getDeclaredField("theUnsafe");
       field.setAccessible(true);

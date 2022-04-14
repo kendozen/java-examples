@@ -14,5 +14,6 @@
         <module>spi</module>
         <module>reactor</module>
         <module>completable</module>
+      <module>rabbitmq-demo</module>
     </modules>
 </project>
