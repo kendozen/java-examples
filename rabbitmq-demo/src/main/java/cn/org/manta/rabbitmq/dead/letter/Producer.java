@@ -2,6 +2,8 @@ package cn.org.manta.rabbitmq.dead.letter;
 
 import cn.org.manta.rabbitmq.Message;
 import cn.org.manta.rabbitmq.Util;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.AMQP.BasicProperties.Builder;
 import com.rabbitmq.client.Channel;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,9 +26,14 @@ public class Producer {
   public static void main(String[] args) throws IOException, TimeoutException {
     Channel channel = createDeadExchangeAndQueue();
     //routing key 必须与订阅的队列一致，否则不会投递而被丢弃
+    final HashMap<String, Object> arguments = new HashMap<>();
+    arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
+    arguments.put("x-dead-letter-routing-key", DEAD_QUEUE_ROUTE_KEY);
+    arguments.put("x-message-ttl", 10000);
+    Builder headers = new Builder().headers(arguments);
     for(;;){
       Message message = Util.read();
-      channel.basicPublish(BIZ_EXCHANGE, message.getRoutingKey(), null, message.getBody());
+      channel.basicPublish(BIZ_EXCHANGE, message.getRoutingKey(), headers.build(), message.getBody());
     }
   }
 
@@ -43,12 +50,14 @@ public class Producer {
     // 这里是额外的属性配置，配置ttl及ttl之后消息将通过什么key发到哪个交换机上
     // 如果不定义x-dead-letter-routing-key，则会使用原本的route key
     // 如果消息和队列都定义了ttl，以俩者最小的那个为ttl
+    /*
     final HashMap<String, Object> arguments = new HashMap<>();
     arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
     arguments.put("x-dead-letter-routing-key", DEAD_QUEUE_ROUTE_KEY);
     arguments.put("x-message-ttl", 10000);
+     */
 
-    channel.queueDeclare(BIZ_QUEUE, true, false, false, arguments);
+    channel.queueDeclare(BIZ_QUEUE, true, false, false, null);
     channel.queueBind(BIZ_QUEUE, BIZ_EXCHANGE, "");
     return channel;
   }
