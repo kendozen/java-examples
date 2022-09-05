@@ -1,6 +1,5 @@
 package reactor.v1;
 
-import cn.manta.reactor.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
+import reactor.Util;
 
 /**
  * @author hwang

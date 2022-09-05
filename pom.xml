@@ -15,5 +15,7 @@
         <module>reactor</module>
         <module>completable</module>
       <module>rabbitmq-demo</module>
+      <module>thread-demo</module>
+      <module>spring-boot-dynamic-datasource</module>
     </modules>
 </project>
